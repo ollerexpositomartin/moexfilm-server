@@ -11,5 +11,5 @@ export const signUp = async (email:string,password:string) =>{
 }
 
 export const signIn = async(email:string,password:string) =>{
-    
+  return 0;
 }

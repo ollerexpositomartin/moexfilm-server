@@ -38,9 +38,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const Auth = __importStar(require("../services/AuthService"));
 const router = express_1.default.Router();
-router.post('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.post('/signup', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const user = req.body;
-    const isAuth = yield Auth.createUser(user.email, user.password);
+    const isAuth = yield Auth.signUp(user.email, user.password);
+    res.sendStatus(isAuth ? 200 : 403);
+}));
+router.post('/signin', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const user = req.body;
+    const isAuth = yield Auth.signUp(user.email, user.password);
     res.sendStatus(isAuth ? 200 : 403);
 }));
 exports.default = router;

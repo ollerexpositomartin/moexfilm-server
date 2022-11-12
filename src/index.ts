@@ -12,6 +12,6 @@ app.use(bodyParser.raw());
 app.use('/auth',Auth)
 
 
-app.listen( port, () => {
+app.listen( process.env.PORT || 8080, () => {
     console.log( `server started at http://localhost:${ port } 🚀`);
 } );
