@@ -21,7 +21,11 @@ const signUp = (email, password) => __awaiter(void 0, void 0, void 0, function* 
 });
 exports.signUp = signUp;
 const signIn = (email, password) => __awaiter(void 0, void 0, void 0, function* () {
-    return 0;
+    const { data, error } = yield supabase.auth.signInWithPassword({
+        email,
+        password
+    });
+    return error == null ? true : false;
 });
 exports.signIn = signIn;
 //# sourceMappingURL=AuthService.js.map

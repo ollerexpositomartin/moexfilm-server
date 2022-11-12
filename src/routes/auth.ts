@@ -12,7 +12,7 @@ router.post('/signup', async (req, res) => {
 
 router.post('/signin', async (req, res) => {
   const user:User = req.body
-  const isAuth = await Auth.signUp(user.email,user.password)
+  const isAuth = await Auth.signIn(user.email,user.password)
   res.sendStatus(isAuth?200:403);
 })
 
