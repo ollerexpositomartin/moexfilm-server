@@ -10,7 +10,8 @@ const app = (0, express_1.default)();
 const port = 8080;
 app.use(body_parser_1.default.urlencoded({ extended: false }));
 app.use(body_parser_1.default.json());
-app.use(body_parser_1.default.raw());
+// app.use(bodyParser.raw());
+// app.use(bodyParser.text())
 app.use('/auth', auth_1.default);
 app.listen(process.env.PORT || 8080, () => {
     console.log(`server started at http://localhost:${port} 🚀`);
