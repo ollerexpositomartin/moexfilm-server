@@ -1,19 +1,18 @@
-import express from "express";
-import Auth from './routes/auth'
-import bodyParser from "body-parser";
-import { proxy } from "./proxy";
+import express from "express"
+import V1API from "./routes/api/v1"
+import V1AUTH from "./routes/auth/v1"
+import bodyParser from "body-parser"
+import { proxy } from "./proxy"
 
-const app = express();
-const port = 8080;
+const app = express()
+const port = process.env.PORT || 8080
 
-app.use(bodyParser.urlencoded({extended: false}))
-app.use(proxy);
-app.use(bodyParser.json());
-app.use(bodyParser.raw());
-app.use(bodyParser.text())
+app.use(proxy)
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
+app.use('/auth/v1',V1AUTH)
+app.use('/api/v1',V1API)
 
-app.use('/auth',Auth)
-
-app.listen( process.env.PORT || 8080, () => {
-    console.log( `server started at http://localhost:${ port } 🚀`);
-});
+app.listen(port, () => {
+  console.log(`server started at http://localhost:${port} 🚀`)
+})

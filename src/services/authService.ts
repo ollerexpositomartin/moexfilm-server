@@ -15,5 +15,6 @@ export const signIn = async (email: string, password: string) => {
     email,
     password
   })
+  console.log(data)
   return error == null ? true : false;
 }

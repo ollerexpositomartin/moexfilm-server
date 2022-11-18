@@ -1,0 +1,9 @@
+#Nodejs
+node_modules
+package-lock.json
+
+# Built TS files
+dist/**/*
+
+#Environment variables
+.env

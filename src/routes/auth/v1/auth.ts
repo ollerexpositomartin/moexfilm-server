@@ -1,6 +1,6 @@
 import express from "express";
-import * as Auth from '../services/AuthService'
-import { User } from '../models/user'
+import * as Auth from '../../../services/AuthService'
+import { User } from '../../../models/user'
 
 const router = express.Router();
 

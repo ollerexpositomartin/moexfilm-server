@@ -25,6 +25,7 @@ const signIn = (email, password) => __awaiter(void 0, void 0, void 0, function* 
         email,
         password
     });
+    console.log(data);
     return error == null ? true : false;
 });
 exports.signIn = signIn;
