@@ -8,5 +8,5 @@ dist/**/*
 #Environment variables
 .env
 
-#account service
-moexfilm-accs.json
+#credentials
+credentials.json
