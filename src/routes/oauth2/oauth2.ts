@@ -18,7 +18,7 @@ export const oauthClient = new google.auth.OAuth2({
 
 //load crendetials if exists
 if (fs.existsSync("credentials.json")) {
-  console.log("crendetials loaded 😈")
+  console.log("credentials loaded 😈")
   let rawData:any = fs.readFileSync("credentials.json")
   let credentials: Credentials = JSON.parse(rawData)
   oauthClient.setCredentials(credentials)
