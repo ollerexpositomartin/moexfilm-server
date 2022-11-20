@@ -1,6 +1,12 @@
-import { oauth2 } from "googleapis/build/src/apis/oauth2"
+import { Router } from "express"
+import { getAllFolders } from "../../../services/gdService"
 
-export const scanAll = () => {
-    console.log('scanAll')
-}
+const router = Router()
 
+router.use('/',async (req,res)=>{
+   let folders =  await getAllFolders('1l-zx6XFLtugKI0dNkOA6zztHOsDOShko')
+   console.log(folders)
+})
+
+
+export default router

@@ -10,18 +10,18 @@ dotenv.config()
 
 const router = Router()
 
-export const oauthClient = new google.auth.OAuth2({
+export const oauth2Client = new google.auth.OAuth2({
   clientId: process.env.CLIENT_ID,
   clientSecret: process.env.CLIENT_SECRET,
   redirectUri: REDIRECT,
 })
 
-//load crendetials if exists
+// load crendetials if exists
 if (fs.existsSync("credentials.json")) {
   console.log("credentials loaded 😈")
-  let rawData:any = fs.readFileSync("credentials.json")
-  let credentials: Credentials = JSON.parse(rawData)
-  oauthClient.setCredentials(credentials)
+  const rawData: any = fs.readFileSync("credentials.json")
+  const credentials: Credentials = JSON.parse(rawData)
+  oauth2Client.setCredentials(credentials)
 }
 
 router.use("/configure", async (req, res) => {
@@ -30,7 +30,7 @@ router.use("/configure", async (req, res) => {
     return
   }
 
-  const urlLogin = oauthClient.generateAuthUrl({
+  const urlLogin = oauth2Client.generateAuthUrl({
     access_type: "offline",
     scope: SCOPES,
   })
@@ -44,20 +44,25 @@ router.use("/configure", async (req, res) => {
 
 router.use("/oauthcallback", async (req, res) => {
   const code = req.query.code as string
-  const { tokens } = await oauthClient.getToken(code)
-  oauthClient.setCredentials(tokens)
+  const { tokens } = await oauth2Client.getToken(code)
+  oauth2Client.setCredentials(tokens)
   if (tokens.refresh_token == null) {
     res.send("FAILURE")
     return
   }
-  let data = JSON.stringify(tokens)
+  const data = JSON.stringify(tokens)
   fs.writeFileSync("credentials.json", data)
 
   res.send("OK")
 })
 
 router.use("/reset", async (req, res) => {
-  fs.unlinkSync("crendetials.json")
+  try{
+    fs.unlinkSync("credentials.json")
+    res.send('CREDENTIALS REMOVE')
+  }catch(e){
+    res.send('ERROR CREDENTIALS NOT FOUNDS')
+  }
 })
 
 export default router
