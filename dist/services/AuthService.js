@@ -8,10 +8,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.signIn = exports.signUp = void 0;
 const supabase_js_1 = require("@supabase/supabase-js");
-const supabase = (0, supabase_js_1.createClient)('https://veplbweymcfyesluztaz.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZlcGxid2V5bWNmeWVzbHV6dGF6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjgxOTYyNjUsImV4cCI6MTk4Mzc3MjI2NX0.FaU6PbOx7CoYGbxWC5qLKVABjX240tYh1HNuCfNUzNA');
+const dotenv_1 = __importDefault(require("dotenv"));
+dotenv_1.default.config();
+const supabase = (0, supabase_js_1.createClient)('https://veplbweymcfyesluztaz.supabase.co', process.env.SUPABASE_TOKEN);
 const signUp = (email, password) => __awaiter(void 0, void 0, void 0, function* () {
     const { data, error } = yield supabase.auth.signUp({
         email,
