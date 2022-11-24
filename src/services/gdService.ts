@@ -9,16 +9,17 @@ const drive = google.drive({
   auth: oauth2Client,
 })
 
-let allItems: ItemDrive[] = new Array()
 
-export const getAllItems = async (ids: ItemDrive[], type:DriveContentType) => {
+
+export const getAllItems = async (id:string, type:DriveContentType) => {
   let res
   let pageToken = ""
   let subFolders: ItemDrive[] = new Array()
+  let allItems: ItemDrive[] = new Array()
 
   do {
     res = await drive.files.list({
-      q: createQuery(ids, type),
+      q: createQuery(id, type),
       fields: "nextPageToken, files(id, name)",
       includeItemsFromAllDrives: true,
       supportsAllDrives: true,
@@ -30,11 +31,13 @@ export const getAllItems = async (ids: ItemDrive[], type:DriveContentType) => {
     const foldersIteration = JSON.parse(jsonFolders) as ItemDrive[]
     allItems = allItems.concat(foldersIteration)
 
-    console.log()
-
     if (type == DriveContentType.FOLDER) subFolders = subFolders.concat(foldersIteration)
 
   } while (res.data.nextPageToken != null)
+
+  for(let folder of subFolders){
+   allItems = allItems.concat(await getAllItems(folder.id,DriveContentType.FOLDER))
+  }
 
  /* if(subFolders.length != 0) {
 
